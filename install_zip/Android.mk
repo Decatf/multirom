@@ -24,7 +24,7 @@ ifneq ($(MR_DEVICE_VARIANTS),)
 	MR_DEVICES += $(MR_DEVICE_VARIANTS)
 endif
 
-$(MULTIROM_ZIP_TARGET): multirom trampoline fw_mounter signapk bbootimg mrom_kexec_static mrom_adbd $(multirom_extra_dep)
+$(MULTIROM_ZIP_TARGET): multirom trampoline signapk bbootimg mrom_kexec_static mrom_adbd $(multirom_extra_dep)
 	@echo
 	@echo
 	@echo "A crowdfunding campaign for MultiROM took place in 2013. These people got perk 'The Tenth':"
@@ -40,7 +40,6 @@ $(MULTIROM_ZIP_TARGET): multirom trampoline fw_mounter signapk bbootimg mrom_kex
 	cp -a $(install_zip_path)/prebuilt-installer/* $(MULTIROM_INST_DIR)/
 	cp -a $(TARGET_ROOT_OUT)/multirom $(MULTIROM_INST_DIR)/multirom/
 	cp -a $(TARGET_ROOT_OUT)/trampoline $(MULTIROM_INST_DIR)/multirom/
-	cp -a $(TARGET_ROOT_OUT)/fw_mounter $(MULTIROM_INST_DIR)/multirom/
 	cp -a $(TARGET_OUT_OPTIONAL_EXECUTABLES)/mrom_kexec_static $(MULTIROM_INST_DIR)/multirom/kexec
 	cp -a $(TARGET_OUT_OPTIONAL_EXECUTABLES)/mrom_adbd $(MULTIROM_INST_DIR)/multirom/adbd
 
@@ -59,6 +58,7 @@ $(MULTIROM_ZIP_TARGET): multirom trampoline fw_mounter signapk bbootimg mrom_kex
 		cp -a $(TARGET_OUT_SHARED_LIBRARIES)/liblog.so $(MULTIROM_INST_DIR)/multirom/enc/; \
 		cp -a $(TARGET_OUT_SHARED_LIBRARIES)/libm.so $(MULTIROM_INST_DIR)/multirom/enc/; \
 		cp -a $(TARGET_OUT_SHARED_LIBRARIES)/libstdc++.so $(MULTIROM_INST_DIR)/multirom/enc/; \
+		cp -a $(TARGET_OUT_SHARED_LIBRARIES)/libc++.so $(MULTIROM_INST_DIR)/multirom/enc/; \
 		if [ -n "$(MR_ENCRYPTION_SETUP_SCRIPT)" ]; then sh "$(ANDROID_BUILD_TOP)/$(MR_ENCRYPTION_SETUP_SCRIPT)" "$(ANDROID_BUILD_TOP)" "$(MULTIROM_INST_DIR)/multirom/enc"; fi; \
 	fi
 
